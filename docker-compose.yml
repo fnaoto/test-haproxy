@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=pass
+      - TZ=Asia/Tokyo
+
+  haproxy:
+    image: haproxy:alpine
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - '13306:13306'
+    links:
+      - db
